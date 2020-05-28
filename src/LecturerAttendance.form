@@ -482,30 +482,36 @@
                   </Border>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="19" rowCount="0">
+                  <Table columnCount="20" rowCount="0">
                     <Column editable="false" title="ID Attendance" type="java.lang.Object"/>
+                    <Column editable="true" title="ID Student" type="java.lang.Object"/>
                     <Column editable="false" title="Name" type="java.lang.Object"/>
                     <Column editable="false" title="Surname" type="java.lang.Object"/>
                     <Column editable="false" title="Subject" type="java.lang.Object"/>
-                    <Column editable="false" title="W1" type="java.lang.Object"/>
-                    <Column editable="false" title="W2" type="java.lang.Object"/>
-                    <Column editable="false" title="W3" type="java.lang.Object"/>
-                    <Column editable="false" title="W4" type="java.lang.Object"/>
-                    <Column editable="false" title="W5" type="java.lang.Object"/>
-                    <Column editable="false" title="W6" type="java.lang.Object"/>
-                    <Column editable="false" title="W7" type="java.lang.Object"/>
-                    <Column editable="false" title="W8" type="java.lang.Object"/>
-                    <Column editable="false" title="W9" type="java.lang.Object"/>
-                    <Column editable="false" title="W10" type="java.lang.Object"/>
-                    <Column editable="false" title="W11" type="java.lang.Object"/>
-                    <Column editable="false" title="W12" type="java.lang.Object"/>
-                    <Column editable="false" title="W13" type="java.lang.Object"/>
-                    <Column editable="false" title="W14" type="java.lang.Object"/>
-                    <Column editable="false" title="W15" type="java.lang.Object"/>
+                    <Column editable="true" title="W1" type="java.lang.Object"/>
+                    <Column editable="true" title="W2" type="java.lang.Object"/>
+                    <Column editable="true" title="W3" type="java.lang.Object"/>
+                    <Column editable="true" title="W4" type="java.lang.Object"/>
+                    <Column editable="true" title="W5" type="java.lang.Object"/>
+                    <Column editable="true" title="W6" type="java.lang.Object"/>
+                    <Column editable="true" title="W7" type="java.lang.Object"/>
+                    <Column editable="true" title="W8" type="java.lang.Object"/>
+                    <Column editable="true" title="W9" type="java.lang.Object"/>
+                    <Column editable="true" title="W10" type="java.lang.Object"/>
+                    <Column editable="true" title="W11" type="java.lang.Object"/>
+                    <Column editable="true" title="W12" type="java.lang.Object"/>
+                    <Column editable="true" title="W13" type="java.lang.Object"/>
+                    <Column editable="true" title="W14" type="java.lang.Object"/>
+                    <Column editable="true" title="W15" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="2">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
                       <Editor/>

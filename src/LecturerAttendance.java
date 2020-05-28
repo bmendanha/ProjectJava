@@ -223,11 +223,11 @@ public class LecturerAttendance extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Attendance", "Name", "Surname", "Subject", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13", "W14", "W15"
+                "ID Attendance", "ID Student", "Name", "Surname", "Subject", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13", "W14", "W15"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, true, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -249,7 +249,6 @@ public class LecturerAttendance extends javax.swing.JFrame {
             tbAttendance.getColumnModel().getColumn(2).setResizable(false);
             tbAttendance.getColumnModel().getColumn(3).setResizable(false);
             tbAttendance.getColumnModel().getColumn(4).setResizable(false);
-            tbAttendance.getColumnModel().getColumn(4).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(5).setResizable(false);
             tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(6).setResizable(false);
@@ -278,6 +277,8 @@ public class LecturerAttendance extends javax.swing.JFrame {
             tbAttendance.getColumnModel().getColumn(17).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(18).setResizable(false);
             tbAttendance.getColumnModel().getColumn(18).setPreferredWidth(30);
+            tbAttendance.getColumnModel().getColumn(19).setResizable(false);
+            tbAttendance.getColumnModel().getColumn(19).setPreferredWidth(30);
         }
 
         jLabel5.setText("W1");
@@ -697,16 +698,15 @@ public class LecturerAttendance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        saveFirstAttendance();
+        saveAttendance();
         carregaTabelaStudent();
         carregaTabelaSubject();
         carregaTabelaAttendance();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void saveFirstAttendance() {
+    private void saveAttendance() {
         txtIdAttendance.setText(txtIdStudent.getText() + txtIdSubject.getText());
-        String sql = "insert into grade(idGrade, IdStudent,firstNameStudent,lastNameStudent,IdAssessment,titleSubject,grade,comments)values(?,?,?,?,?,?,?,?)";
-
+        String sql = "insert into attendance(idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtIdAttendance.getText());
@@ -715,15 +715,29 @@ public class LecturerAttendance extends javax.swing.JFrame {
             pst.setString(4, txtSurnameStudent.getText());
             pst.setString(5, txtIdSubject.getText());
             pst.setString(6, txtTitleSubject.getText());
-
-            //the line below updates table GRADE with the form data.
+            pst.setString(7, txtw1.getText());
+            pst.setString(8, txtw2.getText());
+            pst.setString(9, txtw3.getText());
+            pst.setString(10, txtw4.getText());
+            pst.setString(11, txtw5.getText());
+            pst.setString(12, txtw6.getText());
+            pst.setString(13, txtw7.getText());
+            pst.setString(14, txtw8.getText());
+            pst.setString(15, txtw9.getText());
+            pst.setString(16, txtw10.getText());
+            pst.setString(17, txtw11.getText());
+            pst.setString(18, txtw12.getText());
+            pst.setString(19, txtw13.getText());
+            pst.setString(20, txtw14.getText());
+            pst.setString(21, txtw15.getText());
+            //the line below updates table ATTENDANCE with the form data.
             int adicionado = pst.executeUpdate();
             if (adicionado > 0) {
                 JOptionPane.showMessageDialog(null, "the ATTENDANCE was saved with success");
                 eraseFieldsMain();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "This STUDENT has already been ALOCATED to this class  " + e);
+            JOptionPane.showMessageDialog(null, "This STUDENT has already been ALOCATED to this class  \n" + e);
             eraseFieldsMain();
         }
     }
@@ -790,9 +804,14 @@ public class LecturerAttendance extends javax.swing.JFrame {
         tbAttendance.getColumnModel().getColumn(13).setPreferredWidth(5);
         tbAttendance.getColumnModel().getColumn(14).setPreferredWidth(5);
         tbAttendance.getColumnModel().getColumn(15).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(16).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(17).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(18).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(19).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(20).setPreferredWidth(5);
 
         try {
-            pst = conexao.prepareStatement("select idAttendance, IdStudent, firstNameStudent, lastNameStudent, IdSubject, titleSubject, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15 order by firstNameStudent;");
+            pst = conexao.prepareStatement("idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 order by firstNameStudent;");
             rs = pst.executeQuery();
             while (rs.next()) {
                 modelo.addRow(new Object[]{
@@ -801,7 +820,22 @@ public class LecturerAttendance extends javax.swing.JFrame {
                     rs.getString(3),
                     rs.getString(4),
                     rs.getString(5),
-                    rs.getString(6)
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8),
+                    rs.getString(9),
+                    rs.getString(10),
+                    rs.getString(11),
+                    rs.getString(12),
+                    rs.getString(13),
+                    rs.getString(14),
+                    rs.getString(15),
+                    rs.getString(16),
+                    rs.getString(17),
+                    rs.getString(18),
+                    rs.getString(19),
+                    rs.getString(20),
+                    rs.getString(21)
                 });
             }
 
@@ -815,7 +849,7 @@ public class LecturerAttendance extends javax.swing.JFrame {
         txtSurnameStudent.setText(null);
         txtIdSubject.setText(null);
         txtTitleSubject.setText(null);
-
+        txtIdAttendance.setText(null);
     }
 
     public void setar_camposSt() {
