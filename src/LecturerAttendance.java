@@ -14,14 +14,10 @@ import static mondrian.olap.fun.vba.Vba.str;
  * e-mail: bmendanha@hotmail.com
  */
 public class LecturerAttendance extends javax.swing.JFrame {
-
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    /**
-     * Creates new form frmAdmin
-     */
     public LecturerAttendance() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
@@ -29,8 +25,7 @@ public class LecturerAttendance extends javax.swing.JFrame {
         eraseFieldsMain();
         carregaTabelaStudent();
         carregaTabelaSubject();
-
-        // carregaTabelaAttendance();
+        carregaTabelaAttendance();
     }
 
     /**
@@ -61,15 +56,15 @@ public class LecturerAttendance extends javax.swing.JFrame {
         txtIdAttendance = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbAttendance = new javax.swing.JTable();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        lblStudentName = new javax.swing.JLabel();
+        lblModule = new javax.swing.JLabel();
+        lblStudentSurname = new javax.swing.JLabel();
+        lblIdSubject = new javax.swing.JLabel();
+        lblSubject = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         txtw1 = new javax.swing.JTextField();
         txtw2 = new javax.swing.JTextField();
         txtw3 = new javax.swing.JTextField();
@@ -83,14 +78,24 @@ public class LecturerAttendance extends javax.swing.JFrame {
         txtw11 = new javax.swing.JTextField();
         txtw12 = new javax.swing.JTextField();
         txtw13 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         txtw14 = new javax.swing.JTextField();
         txtw15 = new javax.swing.JTextField();
+        btnSaveAttendance = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnEraseFields = new javax.swing.JButton();
@@ -98,9 +103,9 @@ public class LecturerAttendance extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        btnAdminStudent3 = new javax.swing.JButton();
-        btnAdminFaculty3 = new javax.swing.JButton();
-        btnAdminBranch9 = new javax.swing.JButton();
+        btnAttendance = new javax.swing.JButton();
+        btnGrade = new javax.swing.JButton();
+        btnAssessment = new javax.swing.JButton();
         btnExit3 = new javax.swing.JButton();
         btnAdminBranch10 = new javax.swing.JButton();
 
@@ -223,18 +228,18 @@ public class LecturerAttendance extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Attendance", "ID Student", "Name", "Surname", "Subject", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13", "W14", "W15"
+                "ID Attendance", "ID Student", "Name", "Surname", "ID Subj.", "Subject", "W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12", "W13", "W14", "W15"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
+                false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbAttendance.setColumnSelectionAllowed(true);
+        tbAttendance.setCellSelectionEnabled(false);
         tbAttendance.getTableHeader().setReorderingAllowed(false);
         tbAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -250,7 +255,6 @@ public class LecturerAttendance extends javax.swing.JFrame {
             tbAttendance.getColumnModel().getColumn(3).setResizable(false);
             tbAttendance.getColumnModel().getColumn(4).setResizable(false);
             tbAttendance.getColumnModel().getColumn(5).setResizable(false);
-            tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(6).setResizable(false);
             tbAttendance.getColumnModel().getColumn(6).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(7).setResizable(false);
@@ -279,25 +283,83 @@ public class LecturerAttendance extends javax.swing.JFrame {
             tbAttendance.getColumnModel().getColumn(18).setPreferredWidth(30);
             tbAttendance.getColumnModel().getColumn(19).setResizable(false);
             tbAttendance.getColumnModel().getColumn(19).setPreferredWidth(30);
+            tbAttendance.getColumnModel().getColumn(20).setResizable(false);
+            tbAttendance.getColumnModel().getColumn(20).setPreferredWidth(30);
         }
 
-        jLabel5.setText("W1");
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel8.setText("W8");
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel22.setText("Student");
 
-        jLabel9.setText("W2");
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel23.setText("Module");
 
-        jLabel10.setText("W3");
+        lblStudentName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblStudentName.setForeground(new java.awt.Color(0, 0, 102));
+        lblStudentName.setText("jLabel24");
 
-        jLabel11.setText("W4");
+        lblModule.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblModule.setForeground(new java.awt.Color(0, 0, 102));
+        lblModule.setText("jLabel25");
+        lblModule.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jLabel12.setText("W5");
+        lblStudentSurname.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblStudentSurname.setForeground(new java.awt.Color(0, 0, 102));
+        lblStudentSurname.setText("jLabel24");
 
-        jLabel13.setText("W6");
+        lblIdSubject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblIdSubject.setForeground(new java.awt.Color(0, 0, 102));
+        lblIdSubject.setText("jLabel24");
 
-        jLabel14.setText("W7");
+        lblSubject.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblSubject.setForeground(new java.awt.Color(0, 0, 102));
+        lblSubject.setText("jLabel24");
 
-        jLabel15.setText("W9");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblStudentName)
+                        .addGap(29, 29, 29)
+                        .addComponent(lblStudentSurname)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblIdSubject)
+                    .addComponent(jLabel23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSubject)
+                .addGap(53, 53, 53)
+                .addComponent(lblModule)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblStudentName)
+                            .addComponent(lblStudentSurname)
+                            .addComponent(lblIdSubject)
+                            .addComponent(lblSubject)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lblModule)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtw1.setPreferredSize(new java.awt.Dimension(25, 25));
 
@@ -325,21 +387,173 @@ public class LecturerAttendance extends javax.swing.JFrame {
 
         txtw13.setPreferredSize(new java.awt.Dimension(25, 25));
 
-        jLabel16.setText("W10");
-
-        jLabel17.setText("W11");
-
-        jLabel18.setText("W12");
-
-        jLabel19.setText("W13");
-
-        jLabel20.setText("W14");
-
-        jLabel21.setText("W15");
-
         txtw14.setPreferredSize(new java.awt.Dimension(25, 25));
 
         txtw15.setPreferredSize(new java.awt.Dimension(25, 25));
+
+        btnSaveAttendance.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/NEWattendance32px.png"))); // NOI18N
+        btnSaveAttendance.setToolTipText("Save Attendance");
+        btnSaveAttendance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSaveAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveAttendanceActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("W15");
+
+        jLabel20.setText("W14");
+
+        jLabel19.setText("W13");
+
+        jLabel18.setText("W12");
+
+        jLabel17.setText("W11");
+
+        jLabel16.setText("W10");
+
+        jLabel15.setText("W9");
+
+        jLabel8.setText("W8");
+
+        jLabel14.setText("W7");
+
+        jLabel13.setText("W6");
+
+        jLabel12.setText("W5");
+
+        jLabel11.setText("W4");
+
+        jLabel10.setText("W3");
+
+        jLabel9.setText("W2");
+
+        jLabel5.setText("W1");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 8, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtw1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(txtw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(txtw3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(txtw4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(txtw5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtw6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(txtw7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(txtw8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtw9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(txtw10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(txtw11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18)
+                    .addComponent(txtw12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19)
+                    .addComponent(txtw13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel20)
+                    .addComponent(txtw14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtw15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSaveAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel15))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtw1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtw10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtw11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtw12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtw13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtw15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtw5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSaveAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -363,75 +577,15 @@ public class LecturerAttendance extends javax.swing.JFrame {
                             .addComponent(txtNameStudent)
                             .addComponent(txtIdSubject, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtw1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(txtw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(txtw3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(txtw4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(txtw5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtw6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(txtw7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(txtw8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtw9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(txtw10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(txtw11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addComponent(txtw12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(txtw13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
-                            .addComponent(txtw14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(txtw15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel21)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -464,61 +618,16 @@ public class LecturerAttendance extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel15))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtw1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtw10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel17)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtw11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel18)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtw12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel19)
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel21))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtw13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtw15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtw5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save32px.png"))); // NOI18N
-        btnSave.setToolTipText("Save");
+        btnSave.setToolTipText("Save student on Attendance list");
         btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -567,7 +676,7 @@ public class LecturerAttendance extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 603, Short.MAX_VALUE)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEraseFields, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -595,30 +704,30 @@ public class LecturerAttendance extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(153, 0, 0));
         jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnAdminStudent3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/presence48px.png"))); // NOI18N
-        btnAdminStudent3.setToolTipText("Presence");
-        btnAdminStudent3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdminStudent3.addActionListener(new java.awt.event.ActionListener() {
+        btnAttendance.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/presence48px.png"))); // NOI18N
+        btnAttendance.setToolTipText("Presence");
+        btnAttendance.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAttendance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminStudent3ActionPerformed(evt);
+                btnAttendanceActionPerformed(evt);
             }
         });
 
-        btnAdminFaculty3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grade48px.png"))); // NOI18N
-        btnAdminFaculty3.setToolTipText("Grade");
-        btnAdminFaculty3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdminFaculty3.addActionListener(new java.awt.event.ActionListener() {
+        btnGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/grade48px.png"))); // NOI18N
+        btnGrade.setToolTipText("Grade");
+        btnGrade.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminFaculty3ActionPerformed(evt);
+                btnGradeActionPerformed(evt);
             }
         });
 
-        btnAdminBranch9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/assessment00.png"))); // NOI18N
-        btnAdminBranch9.setToolTipText("Assessment");
-        btnAdminBranch9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdminBranch9.addActionListener(new java.awt.event.ActionListener() {
+        btnAssessment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/assessment00.png"))); // NOI18N
+        btnAssessment.setToolTipText("Assessment");
+        btnAssessment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAssessment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminBranch9ActionPerformed(evt);
+                btnAssessmentActionPerformed(evt);
             }
         });
 
@@ -649,23 +758,23 @@ public class LecturerAttendance extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnAdminBranch10, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdminFaculty3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdminStudent3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdminBranch9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAssessment, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdminStudent3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAttendance, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAdminFaculty3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAdminBranch9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAssessment, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdminBranch10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                 .addComponent(btnExit3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -698,183 +807,11 @@ public class LecturerAttendance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        saveAttendance();
+        saveListAttendance();
         carregaTabelaStudent();
         carregaTabelaSubject();
         carregaTabelaAttendance();
     }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void saveAttendance() {
-        txtIdAttendance.setText(txtIdStudent.getText() + txtIdSubject.getText());
-        String sql = "insert into attendance(idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtIdAttendance.getText());
-            pst.setString(2, txtIdStudent.getText());
-            pst.setString(3, txtNameStudent.getText());
-            pst.setString(4, txtSurnameStudent.getText());
-            pst.setString(5, txtIdSubject.getText());
-            pst.setString(6, txtTitleSubject.getText());
-            pst.setString(7, txtw1.getText());
-            pst.setString(8, txtw2.getText());
-            pst.setString(9, txtw3.getText());
-            pst.setString(10, txtw4.getText());
-            pst.setString(11, txtw5.getText());
-            pst.setString(12, txtw6.getText());
-            pst.setString(13, txtw7.getText());
-            pst.setString(14, txtw8.getText());
-            pst.setString(15, txtw9.getText());
-            pst.setString(16, txtw10.getText());
-            pst.setString(17, txtw11.getText());
-            pst.setString(18, txtw12.getText());
-            pst.setString(19, txtw13.getText());
-            pst.setString(20, txtw14.getText());
-            pst.setString(21, txtw15.getText());
-            //the line below updates table ATTENDANCE with the form data.
-            int adicionado = pst.executeUpdate();
-            if (adicionado > 0) {
-                JOptionPane.showMessageDialog(null, "the ATTENDANCE was saved with success");
-                eraseFieldsMain();
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "This STUDENT has already been ALOCATED to this class  \n" + e);
-            eraseFieldsMain();
-        }
-    }
-
-    private void carregaTabelaStudent() {
-        DefaultTableModel modelo = (DefaultTableModel) tbStudent.getModel();
-        modelo.setNumRows(0);
-        tbStudent.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tbStudent.getColumnModel().getColumn(1).setPreferredWidth(50);
-        tbStudent.getColumnModel().getColumn(2).setPreferredWidth(50);
-        try {
-            pst = conexao.prepareStatement("select idStudent,firstNameStudent,lastNameStudent from students order by firstNameStudent;");
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),});
-            }
-
-        } catch (Exception e) {
-        }
-    }
-
-    private void carregaTabelaSubject() {
-        DefaultTableModel modelo = (DefaultTableModel) tbSubject.getModel();
-        modelo.setNumRows(0);
-        tbSubject.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tbSubject.getColumnModel().getColumn(1).setPreferredWidth(50);
-
-        try {
-            pst = conexao.prepareStatement("select IdSubject, titleSubject from subjects order by titleSubject;");
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString(1),
-                    rs.getString(2)
-                });
-            }
-
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void carregaTabelaAttendance() {
-        DefaultTableModel modelo = (DefaultTableModel) tbAttendance.getModel();
-        modelo.setNumRows(0);
-        tbAttendance.getColumnModel().getColumn(0).setPreferredWidth(20);
-        tbAttendance.getColumnModel().getColumn(1).setPreferredWidth(30);
-        tbAttendance.getColumnModel().getColumn(2).setPreferredWidth(30);
-        tbAttendance.getColumnModel().getColumn(3).setPreferredWidth(40);
-        tbAttendance.getColumnModel().getColumn(4).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(6).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(6).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(7).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(8).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(9).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(10).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(11).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(12).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(13).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(14).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(15).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(16).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(17).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(18).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(19).setPreferredWidth(5);
-        tbAttendance.getColumnModel().getColumn(20).setPreferredWidth(5);
-
-        try {
-            pst = conexao.prepareStatement("idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 order by firstNameStudent;");
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                modelo.addRow(new Object[]{
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7),
-                    rs.getString(8),
-                    rs.getString(9),
-                    rs.getString(10),
-                    rs.getString(11),
-                    rs.getString(12),
-                    rs.getString(13),
-                    rs.getString(14),
-                    rs.getString(15),
-                    rs.getString(16),
-                    rs.getString(17),
-                    rs.getString(18),
-                    rs.getString(19),
-                    rs.getString(20),
-                    rs.getString(21)
-                });
-            }
-
-        } catch (Exception e) {
-        }
-    }
-
-    private void eraseFieldsMain() {
-        txtIdStudent.setText(null);
-        txtNameStudent.setText(null);
-        txtSurnameStudent.setText(null);
-        txtIdSubject.setText(null);
-        txtTitleSubject.setText(null);
-        txtIdAttendance.setText(null);
-    }
-
-    public void setar_camposSt() {
-        int setar = tbStudent.getSelectedRow();
-        txtIdStudent.setText(tbStudent.getModel().getValueAt(setar, 0).toString());
-        txtNameStudent.setText(tbStudent.getModel().getValueAt(setar, 1).toString());
-        txtSurnameStudent.setText(tbStudent.getModel().getValueAt(setar, 2).toString());
-
-    }
-
-    public void setar_camposAs() {
-        int setar = tbSubject.getSelectedRow();
-        txtIdSubject.setText(tbSubject.getModel().getValueAt(setar, 0).toString());
-        txtTitleSubject.setText(tbSubject.getModel().getValueAt(setar, 1).toString());
-
-    }
-
-    public void setar_camposGr() {
-        int setar = tbAttendance.getSelectedRow();
-        txtIdAttendance.setText(tbAttendance.getModel().getValueAt(setar, 0).toString());
-        txtNameStudent.setText(tbAttendance.getModel().getValueAt(setar, 1).toString());
-        txtSurnameStudent.setText(tbAttendance.getModel().getValueAt(setar, 2).toString());
-        txtTitleSubject.setText(tbAttendance.getModel().getValueAt(setar, 3).toString());
-
-    }
 
     private void btnEraseFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEraseFieldsActionPerformed
         eraseFieldsMain();
@@ -885,8 +822,15 @@ public class LecturerAttendance extends javax.swing.JFrame {
         txtTitleSubject.setVisible(true);
         tbStudent.setVisible(true);
         tbSubject.setVisible(true);
+        
+        txtIdStudent.setEnabled(true);
+        txtNameStudent.setEnabled(true);
+        txtSurnameStudent.setEnabled(true);
+        txtIdSubject.setEnabled(true);
+        txtTitleSubject.setEnabled(true);
+        tbStudent.setEnabled(true);
+        tbSubject.setEnabled(true);
     }//GEN-LAST:event_btnEraseFieldsActionPerformed
-
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         // TODO add your handling code here:
@@ -897,38 +841,24 @@ public class LecturerAttendance extends javax.swing.JFrame {
         carregaTabelaAttendance();
         btnSave.setEnabled(true);
     }//GEN-LAST:event_btnDeleteActionPerformed
-    private void deleteGrade() {
-        //consultarAssessment();
-        int confirma = JOptionPane.showConfirmDialog(null, "Do you really want to delete this GRADE?", "ATTENTION", JOptionPane.YES_NO_OPTION);
-        if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from  where idGrade=?";
-            try {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, txtIdAttendance.getText());
-                pst.executeUpdate();
-                eraseFieldsMain();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-    }
-    private void btnAdminStudent3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminStudent3ActionPerformed
+
+    private void btnAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceActionPerformed
         LecturerAttendance frmLecturerAtendance = new LecturerAttendance();
         frmLecturerAtendance.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnAdminStudent3ActionPerformed
+    }//GEN-LAST:event_btnAttendanceActionPerformed
 
-    private void btnAdminFaculty3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminFaculty3ActionPerformed
+    private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
         lecturerGradeStudent frmLecturerGradeStudent = new lecturerGradeStudent();
         frmLecturerGradeStudent.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnAdminFaculty3ActionPerformed
+    }//GEN-LAST:event_btnGradeActionPerformed
 
-    private void btnAdminBranch9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminBranch9ActionPerformed
+    private void btnAssessmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssessmentActionPerformed
         lecturerAssessment frmlecturerAssessment = new lecturerAssessment();
         frmlecturerAssessment.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnAdminBranch9ActionPerformed
+    }//GEN-LAST:event_btnAssessmentActionPerformed
 
     private void btnExit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit3ActionPerformed
         login frmLogin = new login();
@@ -948,14 +878,15 @@ public class LecturerAttendance extends javax.swing.JFrame {
 
     private void tbAttendanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAttendanceMouseClicked
         eraseFieldsMain();
-        txtIdStudent.setVisible(false);
-        txtNameStudent.setVisible(false);
-        txtSurnameStudent.setVisible(false);
-        txtIdSubject.setVisible(false);
-        txtTitleSubject.setVisible(false);
-        tbStudent.setVisible(false);
-        tbSubject.setVisible(false);
-        //setar_camposAtt();
+        unblockfields();
+        setar_campos();
+        txtIdStudent.setEnabled(false);
+        txtNameStudent.setEnabled(false);
+        txtSurnameStudent.setEnabled(false);
+        txtIdSubject.setEnabled(false);
+        txtTitleSubject.setEnabled(false);
+        tbStudent.setEnabled(false);
+        tbSubject.setEnabled(false);
     }//GEN-LAST:event_tbAttendanceMouseClicked
 
     private void txtSurnameStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSurnameStudentActionPerformed
@@ -963,13 +894,20 @@ public class LecturerAttendance extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSurnameStudentActionPerformed
 
     private void tbStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbStudentMouseClicked
+        blockfields();
         setar_camposSt();
+
     }//GEN-LAST:event_tbStudentMouseClicked
 
     private void tbSubjectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbSubjectMouseClicked
+        blockfields();
         setar_camposAs();
     }//GEN-LAST:event_tbSubjectMouseClicked
 
+    private void btnSaveAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveAttendanceActionPerformed
+        saveAttendance();
+        carregaTabelaAttendance();
+    }//GEN-LAST:event_btnSaveAttendanceActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -1009,17 +947,328 @@ public class LecturerAttendance extends javax.swing.JFrame {
             }
         });
     }
+           
+    private void saveListAttendance() {
+        txtIdAttendance.setText(txtIdStudent.getText() + txtIdSubject.getText());
+        String sql = "insert into attendance(idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtIdAttendance.getText());
+            pst.setString(2, txtIdStudent.getText());
+            pst.setString(3, txtNameStudent.getText());
+            pst.setString(4, txtSurnameStudent.getText());
+            pst.setString(5, txtIdSubject.getText());
+            pst.setString(6, txtTitleSubject.getText());
+            pst.setString(7, txtw1.getText());
+            pst.setString(8, txtw2.getText());
+            pst.setString(9, txtw3.getText());
+            pst.setString(10, txtw4.getText());
+            pst.setString(11, txtw5.getText());
+            pst.setString(12, txtw6.getText());
+            pst.setString(13, txtw7.getText());
+            pst.setString(14, txtw8.getText());
+            pst.setString(15, txtw9.getText());
+            pst.setString(16, txtw10.getText());
+            pst.setString(17, txtw11.getText());
+            pst.setString(18, txtw12.getText());
+            pst.setString(19, txtw13.getText());
+            pst.setString(20, txtw14.getText());
+            pst.setString(21, txtw15.getText());
+            //the line below updates table ATTENDANCE with the form data.
+            int adicionado = pst.executeUpdate();
+            if (adicionado > 0) {
+                JOptionPane.showMessageDialog(null, "The student was added to the attendance list with success");
+                eraseFieldsMain();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "This STUDENT has already been ADDED to the attendance list\n" + e);
+            eraseFieldsMain();
+        }
+    }
 
+    private void saveAttendance() {
+        String sql = "update attendance(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; 
+        try {
+            pst = conexao.prepareStatement(sql);
+        /*    pst.setString(7, txtw1.getText());
+            pst.setString(8, txtw2.getText());
+            pst.setString(9, txtw3.getText());
+            pst.setString(10, txtw4.getText());
+            pst.setString(11, txtw5.getText());
+            pst.setString(12, txtw6.getText());
+            pst.setString(13, txtw7.getText());
+            pst.setString(14, txtw8.getText());
+            pst.setString(15, txtw9.getText());
+            pst.setString(16, txtw10.getText());
+            pst.setString(17, txtw11.getText());
+            pst.setString(18, txtw12.getText());
+            pst.setString(19, txtw13.getText());
+            pst.setString(20, txtw14.getText());
+            pst.setString(215, txtw15.getText());
+            */
+            
+            
+            
+            pst.setString(1, txtw1.getText());
+            pst.setString(2, txtw2.getText());
+            pst.setString(3, txtw3.getText());
+            pst.setString(4, txtw4.getText());
+            pst.setString(5, txtw5.getText());
+            pst.setString(6, txtw6.getText());
+            pst.setString(7, txtw7.getText());
+            pst.setString(8, txtw8.getText());
+            pst.setString(9, txtw9.getText());
+            pst.setString(10, txtw10.getText());
+            pst.setString(11, txtw11.getText());
+            pst.setString(12, txtw12.getText());
+            pst.setString(13, txtw13.getText());
+            pst.setString(14, txtw14.getText());
+            pst.setString(15, txtw15.getText());
+            //the line below updates table ATTENDANCE with the form data.
+            int adicionado = pst.executeUpdate();
+            if (adicionado > 0) {
+                JOptionPane.showMessageDialog(null, "The attendance was updated with success");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void carregaTabelaStudent() {
+        DefaultTableModel modelo = (DefaultTableModel) tbStudent.getModel();
+        modelo.setNumRows(0);
+        tbStudent.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tbStudent.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tbStudent.getColumnModel().getColumn(2).setPreferredWidth(50);
+
+        try {
+            pst = conexao.prepareStatement("select idStudent,firstNameStudent,lastNameStudent from students order by firstNameStudent;");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),});
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+    private void carregaTabelaSubject() {
+        DefaultTableModel modelo = (DefaultTableModel) tbSubject.getModel();
+        modelo.setNumRows(0);
+        tbSubject.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tbSubject.getColumnModel().getColumn(1).setPreferredWidth(50);
+        try {
+            pst = conexao.prepareStatement("select IdSubject, titleSubject from subjects order by titleSubject;");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString(1),
+                    rs.getString(2)
+                });
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void carregaTabelaAttendance() {
+        DefaultTableModel modelo = (DefaultTableModel) tbAttendance.getModel();
+        modelo.setNumRows(0);
+        tbAttendance.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tbAttendance.getColumnModel().getColumn(1).setPreferredWidth(30);
+        tbAttendance.getColumnModel().getColumn(2).setPreferredWidth(30);
+        tbAttendance.getColumnModel().getColumn(3).setPreferredWidth(40);
+        tbAttendance.getColumnModel().getColumn(4).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(6).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(5).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(6).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(7).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(8).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(9).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(10).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(11).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(12).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(13).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(14).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(15).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(16).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(17).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(18).setPreferredWidth(5);
+        tbAttendance.getColumnModel().getColumn(19).setPreferredWidth(5);
+
+        try {
+            pst = conexao.prepareStatement("select idAttendance,IdStudent,firstNameStudent,lastNameStudent,IdSubject,titleSubject,w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15 from attendance order by IdSubject, firstNameStudent;");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getString(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8),
+                    rs.getString(9),
+                    rs.getString(10),
+                    rs.getString(11),
+                    rs.getString(12),
+                    rs.getString(13),
+                    rs.getString(14),
+                    rs.getString(15),
+                    rs.getString(16),
+                    rs.getString(17),
+                    rs.getString(18),
+                    rs.getString(19),
+                    rs.getString(20)
+                });
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void eraseFieldsMain() {
+        txtIdStudent.setText(null);
+        txtNameStudent.setText(null);
+        txtSurnameStudent.setText(null);
+        txtIdSubject.setText(null);
+        txtTitleSubject.setText(null);
+        txtIdAttendance.setText(null);
+        txtw1.setText(null);
+        txtw2.setText(null);
+        txtw3.setText(null);
+        txtw4.setText(null);
+        txtw5.setText(null);
+        txtw6.setText(null);
+        txtw7.setText(null);
+        txtw8.setText(null);
+        txtw9.setText(null);
+        txtw10.setText(null);
+        txtw11.setText(null);
+        txtw12.setText(null);
+        txtw13.setText(null);
+        txtw14.setText(null);
+        txtw15.setText(null);       
+        lblStudentName.setText(null);
+        lblStudentSurname.setText(null);
+        lblIdSubject.setText(null);
+        lblSubject.setText(null);
+        lblModule.setText(null);
+    }
+
+    public void setar_camposSt() {
+        int setar = tbStudent.getSelectedRow();
+        txtIdStudent.setText(tbStudent.getModel().getValueAt(setar, 0).toString());
+        txtNameStudent.setText(tbStudent.getModel().getValueAt(setar, 1).toString());
+        txtSurnameStudent.setText(tbStudent.getModel().getValueAt(setar, 2).toString());
+    }
+
+    public void setar_camposAs() {
+        int setar = tbSubject.getSelectedRow();
+        txtIdSubject.setText(tbSubject.getModel().getValueAt(setar, 0).toString());
+        txtTitleSubject.setText(tbSubject.getModel().getValueAt(setar, 1).toString());
+    }
+
+    public void setar_camposGr() {
+        int setar = tbAttendance.getSelectedRow();
+        txtIdAttendance.setText(tbAttendance.getModel().getValueAt(setar, 0).toString());
+        txtNameStudent.setText(tbAttendance.getModel().getValueAt(setar, 1).toString());
+        txtSurnameStudent.setText(tbAttendance.getModel().getValueAt(setar, 2).toString());
+        txtTitleSubject.setText(tbAttendance.getModel().getValueAt(setar, 3).toString());
+
+    }
+    
+    private void blockfields() {
+        txtw1.setEnabled(false);
+        txtw2.setEnabled(false);
+        txtw3.setEnabled(false);
+        txtw4.setEnabled(false);
+        txtw5.setEnabled(false);
+        txtw6.setEnabled(false);
+        txtw7.setEnabled(false);
+        txtw8.setEnabled(false);
+        txtw9.setEnabled(false);
+        txtw10.setEnabled(false);
+        txtw11.setEnabled(false);
+        txtw12.setEnabled(false);
+        txtw13.setEnabled(false);
+        txtw14.setEnabled(false);
+        txtw15.setEnabled(false);
+    }
+
+    private void unblockfields() {
+        txtw1.setEnabled(true);
+        txtw2.setEnabled(true);
+        txtw3.setEnabled(true);
+        txtw4.setEnabled(true);
+        txtw5.setEnabled(true);
+        txtw6.setEnabled(true);
+        txtw7.setEnabled(true);
+        txtw8.setEnabled(true);
+        txtw9.setEnabled(true);
+        txtw10.setEnabled(true);
+        txtw11.setEnabled(true);
+        txtw12.setEnabled(true);
+        txtw13.setEnabled(true);
+        txtw14.setEnabled(true);
+        txtw15.setEnabled(true);
+    }
+    
+    public void setar_campos() {
+        int setar = tbAttendance.getSelectedRow();
+        lblStudentName.setText(tbAttendance.getModel().getValueAt(setar, 2).toString());
+        lblStudentSurname.setText(tbAttendance.getModel().getValueAt(setar, 3).toString());
+        lblIdSubject.setText(tbAttendance.getModel().getValueAt(setar, 4).toString());
+        lblSubject.setText(tbAttendance.getModel().getValueAt(setar, 5).toString());
+        lblModule.setText(tbAttendance.getModel().getValueAt(setar, 0).toString());
+        // The code below is for attendance
+        txtw1.setText(tbAttendance.getModel().getValueAt(setar, 6).toString());
+        txtw2.setText(tbAttendance.getModel().getValueAt(setar, 7).toString());
+        txtw3.setText(tbAttendance.getModel().getValueAt(setar, 8).toString());
+        txtw4.setText(tbAttendance.getModel().getValueAt(setar, 9).toString());
+        txtw5.setText(tbAttendance.getModel().getValueAt(setar, 10).toString());
+        txtw6.setText(tbAttendance.getModel().getValueAt(setar, 11).toString());
+        txtw7.setText(tbAttendance.getModel().getValueAt(setar, 12).toString());
+        txtw8.setText(tbAttendance.getModel().getValueAt(setar, 13).toString());
+        txtw9.setText(tbAttendance.getModel().getValueAt(setar, 14).toString());
+        txtw10.setText(tbAttendance.getModel().getValueAt(setar, 15).toString());
+        txtw11.setText(tbAttendance.getModel().getValueAt(setar, 16).toString());
+        txtw12.setText(tbAttendance.getModel().getValueAt(setar, 17).toString());
+        txtw13.setText(tbAttendance.getModel().getValueAt(setar, 18).toString());
+        txtw14.setText(tbAttendance.getModel().getValueAt(setar, 19).toString());
+        //txtw15..setText(tbAttendance.getModel().getValueAt(setar, 20).toString());
+    }
+    
+    private void deleteGrade() {
+        //consultarAssessment();
+        int confirma = JOptionPane.showConfirmDialog(null, "Do you really want to delete this GRADE?", "ATTENTION", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "delete from  where idGrade=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtIdAttendance.getText());
+                pst.executeUpdate();
+                eraseFieldsMain();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdminBranch10;
-    private javax.swing.JButton btnAdminBranch9;
-    private javax.swing.JButton btnAdminFaculty3;
-    private javax.swing.JButton btnAdminStudent3;
+    private javax.swing.JButton btnAssessment;
+    private javax.swing.JButton btnAttendance;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEraseFields;
     private javax.swing.JButton btnExit3;
+    private javax.swing.JButton btnGrade;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSaveAttendance;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1034,6 +1283,8 @@ public class LecturerAttendance extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1041,13 +1292,20 @@ public class LecturerAttendance extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblIdSubject;
+    private javax.swing.JLabel lblModule;
+    private javax.swing.JLabel lblStudentName;
+    private javax.swing.JLabel lblStudentSurname;
+    private javax.swing.JLabel lblSubject;
     private javax.swing.JTable tbAttendance;
     private javax.swing.JTable tbStudent;
     private javax.swing.JTable tbSubject;
